@@ -16,16 +16,14 @@ const self = {
 
   init: opts => {
     Object.keys(opts).forEach(key => {
-      if (self.hasOwnProperty(key)) {
-        if (key === 'scope') {
-          if (Array.isArray(opts.scope)) {
-            self.scope.concat(opts.scope)
-          } else {
-            self.scope.push(opts.scope)
-          }
-        } else {
-          self[key] = opts[key]
-        }
+      if (!self.hasOwnProperty(key)) return
+
+      if (key !== 'scope') {
+        self[key] = opts[key]
+      } else {
+        Array.isArray(opts.scope)
+          ? self.scope.concat(opts.scope)
+          : self.scope.push(opts.scope)
       }
     })
 
