@@ -22,7 +22,7 @@ const self = {
         self[key] = opts[key]
       } else {
         Array.isArray(opts.scope)
-          ? self.scope.concat(opts.scope)
+          ? (self.scope = self.scope.concat(opts.scope))
           : self.scope.push(opts.scope)
       }
     })
