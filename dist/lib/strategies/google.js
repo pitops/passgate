@@ -9,6 +9,10 @@ function GoogleStrategy(config) {
         res.redirect(google.getAuthUrl())
         break
       case google.callbackPath:
+        if (req.query.error) {
+          res.redirect(google.failureRedirect)
+        }
+
         if (req.query.code) {
           const {tokens} = await google.client.getToken(req.query.code)
 
