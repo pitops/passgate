@@ -14,53 +14,53 @@ if (fs.existsSync(dotenvFilePath)) {
 const app = express()
 const port = process.env.PORT || 3000
 
-const passgateMiddleware = require('./middleware')
+const passgate = require('./dist/middleware')
 
-app.get('/google171ccb7b0cbbac7a.html', function (req, res) {
+passgate.init({
+  google: {
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    authPath: '/auth/google',
+    callbackPath: '/auth/google/callback',
+    revokePath: '/auth/google/revoke',
+    callbackURL: `${process.env.NGROK_URL}/auth/google/callback`,
+    scope: ['https://www.googleapis.com/auth/youtube'],
+    access_type: 'offline',
+    successRedirect: '/',
+    failureRedirect: '/login',
+    eventCallbacks: {
+      onAuthSuccess,
+      onTokensRefresh,
+      onAccessRevoke
+    }
+  }
+})
+
+app.get('/google171ccb7b0cbbac7a.html', function(req, res) {
   res.sendFile(path.join(__dirname + '/google171ccb7b0cbbac7a.html'))
 })
 
-const onAuthSuccess = (
-  { accessToken, refreshToken, tokenExpiryDate, profile },
+function onAuthSuccess(
+  {accessToken, refreshToken, tokenExpiryDate, profile},
   done
-) => {
-  console.log({ accessToken, refreshToken, tokenExpiryDate, profile })
+) {
+  console.log({accessToken, refreshToken, tokenExpiryDate, profile})
   done()
 }
 
-const onTokensRefresh = ({ access_token, refresh_token, expiry_date }) => {
-  console.log({ access_token, refresh_token, expiry_date })
+function onTokensRefresh({access_token, refresh_token, expiry_date}) {
+  console.log({access_token, refresh_token, expiry_date})
 }
 
-const onAccessRevoke = async done => {
+function onAccessRevoke(done) {
   // do database level stuff
-  done('refreshToken')
+  done('1/IeinsMhn7X_vzjik6DNK03ixYf9Ncv50ysHj7nsp0Jw')
 }
 
-app.use((...args) => {
-  passgateMiddleware(...args, {
-    google: {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      authPath: '/auth/google',
-      callbackPath: '/auth/google/callback',
-      revokePath: '/auth/google/revoke',
-      callbackURL: `${process.env.NGROK_URL}/auth/google/callback`,
-      scope: ['https://www.googleapis.com/auth/youtube'],
-      access_type: 'offline',
-      successRedirect: '/',
-      failureRedirect: '/login',
-      eventCallbacks: {
-        onAuthSuccess,
-        onTokensRefresh,
-        onAccessRevoke
-      }
-    }
-  })
-})
+app.use(passgate)
 
 app.get('/', async (req, res) => {
-  const { google } = req.passgate
+  const {google} = req.passgate
   const client = google.getClient()
 
   client.setCredentials({
@@ -69,7 +69,7 @@ app.get('/', async (req, res) => {
   })
 
   try {
-    google.instance.options({ auth: client })
+    google.instance.options({auth: client})
 
     const oauth2 = google.instance.oauth2({
       auth: client,

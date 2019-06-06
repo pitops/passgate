@@ -1,4 +1,4 @@
-const { google } = require('googleapis')
+const {google} = require('googleapis')
 
 const self = {
   clientID: null,
@@ -9,6 +9,10 @@ const self = {
   client: null,
   instance: google,
   eventCallbacks: null,
+  authPath: null,
+  callbackPath: null,
+  successRedirect: null,
+  failureRedirect: null,
 
   init: opts => {
     Object.keys(opts).forEach(key => {
