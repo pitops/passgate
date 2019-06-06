@@ -1,8 +1,29 @@
 {
   "name": "passgate",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.0.1",
+  "main": "dist/middleware.js",
+  "description": "Simple and unobtrusive authentication for third-party OAuth2 providers",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pitops/passgate.git"
+  },
+  "keywords": [
+    "express",
+    "connect",
+    "auth",
+    "authn",
+    "authentication"
+  ],
+  "author": {
+    "name": "Petros Kyriakou",
+    "email": "9pitops@gmail.com",
+    "url": "https://petroskyriakou.com"
+  },
+  "bugs": {
+    "url": "https://github.com/pitops/passgate/issues"
+  },
+  "homepage": "https://github.com/pitops/passgate",
   "scripts": {
     "dev": "NODE_ENV=development npm-run-all --parallel server tunnel",
     "server": "nodemon index.js",
