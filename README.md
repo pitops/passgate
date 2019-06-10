@@ -14,7 +14,7 @@
 
 </div>
 
----
+## <p align = "center">💡 Easy third-party authentication middleware for express</p>
 
 ## 📝 Table of Contents
 
@@ -22,8 +22,6 @@
 - [Getting Started](#getting_started)
 - [TODO](../TODO.md)
 - [Authors](#authors)
-
-<p align = "center">💡 Easy third-party authentication middleware for express</p>
 
 ## 🧐 About <a name = "about"></a>
 
