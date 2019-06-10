@@ -1,6 +1,6 @@
 {
   "name": "passgate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/middleware.js",
   "description": "Simple and unobtrusive authentication for third-party OAuth2 providers",
   "license": "MIT",
