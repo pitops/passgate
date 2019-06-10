@@ -27,19 +27,21 @@ const self = {
       }
     })
 
-    self.getClient()
+    self.getClient({init: true})
   },
 
-  getClient: _ => {
+  getClient: (opts = {}) => {
     self.client = new google.auth.OAuth2(
       self.clientID,
       self.clientSecret,
       self.callbackURL
     )
 
-    self.client.on('tokens', tokens => {
-      self.eventCallbacks.onTokensRefresh(tokens)
-    })
+    if (!opts.init) {
+      self.client.on('tokens', tokens => {
+        self.eventCallbacks.onTokensRefresh(tokens)
+      })
+    }
 
     return self.client
   },
@@ -53,7 +55,7 @@ const self = {
       throw new Error('Access type was not provided')
     }
 
-    return self.getClient().generateAuthUrl({
+    return self.client.generateAuthUrl({
       access_type: self.access_type,
       scope: self.scope
     })

@@ -15,14 +15,14 @@ if (fs.existsSync(dotenvFilePath)) {
 const app = express()
 const port = process.env.PORT || 3000
 
-app.get('/google171ccb7b0cbbac7a.html', function (req, res) {
+app.get('/google171ccb7b0cbbac7a.html', function(req, res) {
   res.sendFile(path.join(__dirname + '/google171ccb7b0cbbac7a.html'))
 })
 
 app.use(passgate)
 
 app.get('/', async (req, res) => {
-  const { google } = req.passgate
+  const {google} = req.passgate
   const client = google.getClient()
 
   client.setCredentials({
@@ -31,7 +31,7 @@ app.get('/', async (req, res) => {
   })
 
   try {
-    google.instance.options({ auth: client })
+    google.instance.options({auth: client})
 
     const oauth2 = google.instance.oauth2({
       auth: client,
@@ -39,6 +39,7 @@ app.get('/', async (req, res) => {
     })
 
     const res = await oauth2.userinfo.get()
+    console.log(res)
   } catch (err) {
     console.log(err)
   }
