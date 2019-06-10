@@ -4,7 +4,7 @@ const strategiesList = Object.freeze({
 
 const strategies = []
 
-async function Passgate(req, res, next) {
+async function Passgate (req, res, next) {
   req.passgate = {}
 
   for (i = 0; i < strategies.length; i++) {
@@ -14,16 +14,15 @@ async function Passgate(req, res, next) {
   next()
 }
 
-Passgate.init = function(strategiesConfig) {
+Passgate.init = function (strategiesConfig) {
   Object.keys(strategiesConfig).forEach(strategyKey => {
-    if (strategiesList.hasOwnProperty(strategyKey)) {
-      strategies.push(
-        require(`./lib/strategies/${strategyKey}`)(
-          strategiesConfig[strategyKey]
-        )
-      )
-    }
+    if (!strategiesList.hasOwnProperty(strategyKey)) return
+
+    strategies.push(
+      require(`./lib/strategies/${strategyKey}`)(strategiesConfig[strategyKey])
+    )
   })
 }
 
 module.exports = Passgate
+exports.passgate = Passgate
