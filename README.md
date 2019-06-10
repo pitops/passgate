@@ -25,7 +25,7 @@
 
 ## 🧐 About <a name = "about"></a>
 
-Passgate is yet another OAuth2 library heavily inspired from passport with the subtle difference of having everything configured in once place.
+Passgate is yet another OAuth2 library heavily inspired from passport with the subtle difference of having everything configured in one place.
 
 The purpose of passgate is to provide a simple and easy unobtrusive way of authenticating with third party OAUTH2 providers. **Right now, it only works with Google OAuth2** but it will be expanded in the near future.
 
@@ -121,8 +121,6 @@ app.listen(port, () => console.log(`App running on ${port}!`))
 Right now Passgate only works with **Express** so make sure your project supports that.
 
 ## TODO
-
----
 
 - [x] Add Google OAUTH
 - [ ] Add Facebook OAUTH
